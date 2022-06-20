@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\userController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,12 +28,24 @@ Route::group(['prefix'=>'venue','as'=>'venue/'], function(){
     Route::post('update', [venue::class,'update']);
 });
 
+Route::group(['prefix'=>'user','as'=>'user/'], function(){
+    Route::post('getByID', [userController::class,'getByID']);
+
+    Route::post('create', [userController::class,'create']);
+
+    Route::post('enable', [userController::class,'enable']);
+
+    Route::post('disable', [userController::class,'disable']);
+
+    Route::post('login', [userController::class,'login']);
+});
+
 
 
 Route::get('/test', function (Request $request){
     return 'test';
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/userController', function (Request $request) {
     return $request->user();
 });
