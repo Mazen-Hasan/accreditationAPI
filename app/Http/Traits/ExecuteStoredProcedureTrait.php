@@ -1,30 +1,28 @@
 <?php
+
 namespace App\Http\Traits;
+
 use Illuminate\Support\Facades\DB;
 
-trait ExecuteStoredProcedureTrait {
+trait ExecuteStoredProcedureTrait
+{
 
-    static public function execute($procedureName, $params) {
+    static public function execute($procedureName, $params)
+    {
 
         $temp_params = $params;
 
         $query = 'call ' . $procedureName . ' (@errCode,@errMsg,';
-        foreach ($temp_params as $param){
+        foreach ($temp_params as $param) {
             $query .= "'" . $param . "',";
         }
 
         $query = rtrim($query, ", ");
         $query .= '); ';
 
-//        var_dump($query);
-//        exit;
-
         $data = DB::select($query);
 
         $results = DB::select('select @errCode as errCode, @errMsg as errMsg ');
-//        var_dump($results[0]->errMsg);
-//        exit;
-
 
         return Response()->json([
             "errCode" => $results[0]->errCode,
@@ -33,7 +31,39 @@ trait ExecuteStoredProcedureTrait {
         ]);
     }
 
-    static public function executeOutParams($procedureName, $params, $outParams) {
+    static public function execute1($procedureName, $params)
+    {
+
+        $temp_params = $params;
+
+        $query = 'call ' . $procedureName . ' (@errCode,@errMsg,';
+        foreach ($temp_params as $param) {
+            $query .= "'" . $param . "',";
+        }
+
+        $query = rtrim($query, ", ");
+        $query .= '); ';
+
+        $data = DB::select($query);
+
+        $results = DB::select('select @errCode as errCode, @errMsg as errMsg ');
+
+        $returnedJson = [];
+        $returnedJson["errCode"] = $results[0]->errCode;
+        $returnedJson["errMsg"] = $results[0]->errMsg;
+        $returnedJson["data"] = json_decode(json_encode($data),true);
+
+        return $returnedJson;
+
+        return Response()->json([
+            "errCode" => $results[0]->errCode,
+            "errMsg" => $results[0]->errMsg,
+            "data" => $data
+        ]);
+    }
+
+    static public function executeOutParams($procedureName, $params, $outParams)
+    {
 
         //put params in temp_params
         $temp_params = $params;
@@ -42,7 +72,7 @@ trait ExecuteStoredProcedureTrait {
         $query = 'call ' . $procedureName . ' (@errCode,@errMsg,';
 
         //loop params
-        foreach ($temp_params as $param){
+        foreach ($temp_params as $param) {
             $query .= "'" . $param . "',";
         }
 
@@ -50,7 +80,7 @@ trait ExecuteStoredProcedureTrait {
         $temp_params = $outParams;
 
         //loop params
-        foreach ($temp_params as $param){
+        foreach ($temp_params as $param) {
             $query .= "" . $param . ",";
         }
 
@@ -64,7 +94,7 @@ trait ExecuteStoredProcedureTrait {
         //prepare select statement
         $query = 'select @errCode as errCode, @errMsg as errMsg';
 
-        foreach ($temp_params as $param){
+        foreach ($temp_params as $param) {
             $query .= "," . $param . " as " . ltrim($param, "@") . ",";
         }
 
@@ -81,15 +111,15 @@ trait ExecuteStoredProcedureTrait {
 
         //add result info to returnedJson
         foreach ($resultsJson as $key => $value) {
-            if($key=='errMsg' || $key=='errCode'){
+            if ($key == 'errMsg' || $key == 'errCode') {
                 $returnJson[$key] = $value;
             }
         }
 
         //add out param to outData
-        $outData =[];
+        $outData = [];
         foreach ($resultsJson as $key => $value) {
-            if($key!='errMsg' && $key!='errCode'){
+            if ($key != 'errMsg' && $key != 'errCode') {
                 $outData[$key] = $value;
             }
         }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\eventController;
 use App\Http\Controllers\userController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,18 @@ Route::group(['prefix'=>'user','as'=>'user/'], function(){
     Route::post('disable', [userController::class,'disable']);
 
     Route::post('login', [userController::class,'login']);
+});
+
+Route::group(['prefix'=>'event','as'=>'event/'], function(){
+    Route::post('getByID', [eventController::class,'getByID']);
+
+    Route::post('create', [eventController::class,'create']);
+
+    Route::post('enable', [eventController::class,'enable']);
+
+    Route::post('disable', [eventController::class,'disable']);
+
+    Route::post('getList', [eventController::class,'getList']);
 });
 
 
