@@ -14,7 +14,7 @@ class eventController extends Controller
 
         $params = [$lang, $user_token];
 //        return ExecuteStoredProcedureTrait::execute('event_get_list',$params);
-
+        //hi
         $dataJson = ExecuteStoredProcedureTrait::execute1('event_get_list',$params);
 
         return $this->parsData($dataJson);
