@@ -81,6 +81,9 @@ class eventController extends Controller
         $securityCategories = [];
         $eventTemplates = [];
 
+        $eventList = [];
+
+
         for($i = 0; $i < count($tempData);$i++) {
             $t = $tempData[$i];
 
@@ -94,9 +97,7 @@ class eventController extends Controller
             $typeItem[] = $typeDataItem;
 
 
-
-
-                $listType[$listTypeName] = $listTypeData;
+            $listType[$listTypeName] = $listTypeData;
         }
 
 //        for($i = 0; $i < count($tempData);$i++) {

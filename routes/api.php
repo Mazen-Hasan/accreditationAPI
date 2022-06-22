@@ -51,6 +51,12 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
     Route::post('disable', [eventController::class,'disable']);
 
     Route::post('getList', [eventController::class,'getList']);
+
+    Route::group(['prefix'=>'company','as'=>'company/'], function(){
+        Route::post('getAll', function (Request $request){
+            return 'test';
+            });
+    });
 });
 
 
