@@ -126,4 +126,29 @@ class eventController extends Controller
         exit;
 
     }
+
+    public function getAll($token,$lang,$offset,$size,$filters)
+    {
+        $lang = $lang;
+        $user_token = $token;
+        $offset = $offset;
+        $size = $size;
+        $filters = $filters;
+
+        $params = [$lang, $user_token, $offset,$size,$filters];
+        return ExecuteStoredProcedureTrait::execute2('event_get_all',$params);
+    }
+
+    public function getAllCompanies($token,$lang,$eventId,$offset,$size,$filters)
+    {
+        $lang = $lang;
+        $user_token = $token;
+        $eventID = $eventId;
+        $offset = $offset;
+        $size = $size;
+        $filters = $filters;
+
+        $params = [$lang, $user_token, $eventID, $offset,$size,$filters];
+        return ExecuteStoredProcedureTrait::execute2('event_company_get_all',$params);
+    }
 }
