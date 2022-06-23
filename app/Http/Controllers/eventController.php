@@ -95,6 +95,11 @@ class eventController extends Controller
         return $returnedJson;
     }
 
+    public function test(Request $request)
+    {
+      return $request->query();
+    }
+
     public function getAll($token,$lang,$offset,$size,$filters)
     {
         $lang = $lang;
