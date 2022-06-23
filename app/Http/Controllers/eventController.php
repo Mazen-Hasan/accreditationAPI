@@ -128,7 +128,7 @@ class eventController extends Controller
 
     }
 
-    public function getAll($token,$lang,$offset,$size,$filters)
+    public function getAll2($token,$lang,$offset,$size,$filters)
     {
         $lang = $lang;
         $user_token = $token;
@@ -140,7 +140,24 @@ class eventController extends Controller
         return ExecuteStoredProcedureTrait::execute2('event_get_all',$params);
     }
 
-    public function getAllCompanies($token,$lang,$eventId,$offset,$size,$filters)
+    public function getAll(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $offset = $request->input('offset');
+        $size = $request->input('size');
+        $filters = $request->input('filters');
+        //$lang = $lang;
+        //$user_token = $token;
+        // $offset = $offset;
+        // $size = $size;
+        // $filters = $filters;
+
+        $params = [$lang, $user_token, $offset,$size,$filters];
+        return ExecuteStoredProcedureTrait::execute2('event_get_all',$params);
+    }
+
+    public function getAllCompanies2($token,$lang,$eventId,$offset,$size,$filters)
     {
         $lang = $lang;
         $user_token = $token;
@@ -148,6 +165,25 @@ class eventController extends Controller
         $offset = $offset;
         $size = $size;
         $filters = $filters;
+
+        $params = [$lang, $user_token, $eventID, $offset,$size,$filters];
+        return ExecuteStoredProcedureTrait::execute2('event_company_get_all',$params);
+    }
+
+    public function getAllCompanies(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $eventID = $request->input('eventID');
+        $offset = $request->input('offset');
+        $size = $request->input('size');
+        $filters = $request->input('filters');
+        // $lang = $lang;
+        // $user_token = $token;
+        // $eventID = $eventId;
+        // $offset = $offset;
+        // $size = $size;
+        // $filters = $filters;
 
         $params = [$lang, $user_token, $eventID, $offset,$size,$filters];
         return ExecuteStoredProcedureTrait::execute2('event_company_get_all',$params);

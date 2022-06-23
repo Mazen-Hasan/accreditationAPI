@@ -52,13 +52,16 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
 
     Route::post('getList', [eventController::class,'getList']);
 
-    Route::get('getAll/{token}/{lang}/{offset}/{size}/{filters}', [eventController::class,'getAll']);
+    Route::post('getAll', [eventController::class,'getAll']);
+
+    //Route::get('getAll/{token}/{lang}/{offset}/{size}/{filters}', [eventController::class,'getAll']);
 
     Route::group(['prefix'=>'company','as'=>'company/'], function(){
         // Route::post('getAll', function (Request $request){
         //     return 'test';
         //     });
-        Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
+        //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
+        Route::post('getAll', [eventController::class,'getAllCompanies']);
     });
 });
 
