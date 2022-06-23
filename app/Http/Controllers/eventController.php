@@ -13,8 +13,6 @@ class eventController extends Controller
         $user_token = $request->header('user_token');
 
         $params = [$lang, $user_token];
-//        return ExecuteStoredProcedureTrait::execute('event_get_list',$params);
-        //hi
         $dataJson = ExecuteStoredProcedureTrait::execute1('event_get_list',$params);
 
         return $this->parsData($dataJson);
@@ -63,13 +61,10 @@ class eventController extends Controller
     }
 
     private function parsData($data){
-        $outData = [];
+        $returnedJson = [];
         $tempData = $data["data"];
         $listType = [];
-        $listTypeData = [];
 
-        $tempListData = [];
-        $typeDataItem = [];
         $typeItem = [];
 
         $listTypeName = '';
@@ -77,55 +72,27 @@ class eventController extends Controller
         $idKey = 'id';
         $nameKey = 'name';
 
-        $eventTypes = [];
-        $securityCategories = [];
-        $eventTemplates = [];
-
-        $eventList = [];
-
 
         for($i = 0; $i < count($tempData);$i++) {
             $t = $tempData[$i];
 
-            $typeDataItem = [];
-
             $listTypeName = $t[$listTypeKey];
 
-            $typeDataItem['id'] = $t[$idKey];
-            $typeDataItem['name'] = $t[$nameKey];
+            if (!array_key_exists($listTypeName, $listType)){
+                $listType[$listTypeName] = [];
+            }
 
-            $typeItem[] = $typeDataItem;
+            $typeItem = ['id'=> $t[$idKey], 'name' => $t[$nameKey]];
 
 
-            $listType[$listTypeName] = $listTypeData;
+            array_push($listType[$listTypeName] , $typeItem);
         }
 
-//        for($i = 0; $i < count($tempData);$i++) {
-//            $t = $tempData[$i];
-////            var_dump($t);
-//            foreach ($t as $key => $value) {
-//                $typeDataItem = [];
-//                if($key == 'listType'){
-//                    $listTypeName = $value;
-//                    if (!array_key_exists($listTypeName, $listType)){
-//                        $listType[$listTypeName] = [];
-//                    }
-//                }
-//                else{
-//                    $typeDataItem[$key] = $value;
-//                    $typeItem[] = $typeDataItem;
-//                }
-//
-//                $listType[$listTypeName] = $listTypeData;
-//            }
-//        }
+        $returnedJson['errCode'] = $data['errCode'];
+        $returnedJson['errMsg'] = $data['errMsg'];
+        $returnedJson['data']['data'] = $listType;
 
-        var_dump($listType);
-        exit;
-
-        var_dump(json_encode($listType));
-        exit;
-
+        return $returnedJson;
     }
 
     public function getAll2($token,$lang,$offset,$size,$filters)
