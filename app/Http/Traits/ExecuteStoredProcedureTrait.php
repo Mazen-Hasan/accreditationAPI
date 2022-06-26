@@ -79,7 +79,7 @@ trait ExecuteStoredProcedureTrait
         //put outParams in temp_params
         $temp_params = $outParams;
 
-        //loop params
+        //loop outParams and add to call statement
         foreach ($temp_params as $param) {
             $query .= "" . $param . ",";
         }
@@ -91,11 +91,11 @@ trait ExecuteStoredProcedureTrait
         //get cursor result
         $data = DB::select($query);
 
-        //prepare select statement
+        //prepare select statement to get result
         $query = 'select @errCode as errCode, @errMsg as errMsg';
 
         foreach ($temp_params as $param) {
-            $query .= "," . $param . " as " . ltrim($param, "@") . ",";
+            $query .= "," . $param . " as " . ltrim($param, "@") ;
         }
 
         //remove last ","
