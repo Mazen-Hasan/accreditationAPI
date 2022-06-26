@@ -59,6 +59,8 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
 
     //Route::get('getAll/{token}/{lang}/{offset}/{size}/{filters}', [eventController::class,'getAll']);
 
+    Route::get('test', [eventController::class,'test']);
+
     Route::group(['prefix'=>'company','as'=>'company/'], function(){
         // Route::post('getAll', function (Request $request){
         //     return 'test';

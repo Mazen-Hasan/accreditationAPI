@@ -20,7 +20,7 @@ class userController extends Controller
 
         $params = [$lang, $email, $password];
 
-        $outParams = ['@token'];
+        $outParams = ['@token', '@user_name'];
         return ExecuteStoredProcedureTrait::executeOutParams('login',$params, $outParams);
     }
 
