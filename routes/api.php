@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\eventController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\CompanyCategoryController;
+use App\Http\Controllers\EventTypeController;
+use App\Http\Controllers\SecurityCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +66,30 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
         //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
         Route::post('getAll', [eventController::class,'getAllCompanies']);
     });
+});
+
+Route::group(['prefix'=>'companyCategory','as'=>'companyCategory/'], function(){
+    Route::post('getAll', [CompanyCategoryController::class,'getAll']);
+    Route::post('add', [CompanyCategoryController::class,'create']);
+    Route::post('edit', [CompanyCategoryController::class,'edit']);
+    Route::post('enable', [CompanyCategoryController::class,'enable']);
+    Route::post('disable', [CompanyCategoryController::class,'disable']);
+});
+
+Route::group(['prefix'=>'securityCategory','as'=>'securityCategory/'], function(){
+    Route::post('getAll', [SecurityCategoryController::class,'getAll']);
+    Route::post('add', [SecurityCategoryController::class,'create']);
+    Route::post('edit', [SecurityCategoryController::class,'edit']);
+    Route::post('enable', [SecurityCategoryController::class,'enable']);
+    Route::post('disable', [SecurityCategoryController::class,'disable']);
+});
+
+Route::group(['prefix'=>'eventType','as'=>'eventType/'], function(){
+    Route::post('getAll', [EventTypeController::class,'getAll']);
+    Route::post('add', [EventTypeController::class,'create']);
+    Route::post('edit', [EventTypeController::class,'edit']);
+    Route::post('enable', [EventTypeController::class,'enable']);
+    Route::post('disable', [EventTypeController::class,'disable']);
 });
 
 
