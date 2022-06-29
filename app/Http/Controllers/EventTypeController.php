@@ -65,6 +65,17 @@ class EventTypeController extends Controller
         $params = [$lang, $user_token, $event_type_id, 0];
 
         $outParams = [];
-        return ExecuteStoredProcedureTrait::execute('event_type_change_status',$params,$outParams);
+        return ExecuteStoredProcedureTrait::executeOutParams('event_type_change_status',$params,$outParams);
+    }
+
+    public function getByID(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_type_id = $request->input('event_type_id');
+
+        $params = [$lang, $user_token, $event_type_id];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('event_type_get_by_id',$params, $outParams);
     }
 }

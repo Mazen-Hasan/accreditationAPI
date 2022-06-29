@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyCategoryController;
 use App\Http\Controllers\EventTypeController;
 use App\Http\Controllers\SecurityCategoryController;
 use App\Http\Controllers\AccreditationCategoryController;
+use App\Http\Controllers\EmailTemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,7 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
     Route::post('getList', [eventController::class,'getList']);
 
     Route::post('getAll', [eventController::class,'getAll']);
+    Route::post('getAllWithArchived', [eventController::class,'getAllWithArchived']);
 
     //Route::get('getAll/{token}/{lang}/{offset}/{size}/{filters}', [eventController::class,'getAll']);
 
@@ -77,6 +79,7 @@ Route::group(['prefix'=>'companyCategory','as'=>'companyCategory/'], function(){
     Route::post('edit', [CompanyCategoryController::class,'edit']);
     Route::post('enable', [CompanyCategoryController::class,'enable']);
     Route::post('disable', [CompanyCategoryController::class,'disable']);
+    Route::post('getByID', [CompanyCategoryController::class,'getByID']);
 });
 
 Route::group(['prefix'=>'securityCategory','as'=>'securityCategory/'], function(){
@@ -85,6 +88,7 @@ Route::group(['prefix'=>'securityCategory','as'=>'securityCategory/'], function(
     Route::post('edit', [SecurityCategoryController::class,'edit']);
     Route::post('enable', [SecurityCategoryController::class,'enable']);
     Route::post('disable', [SecurityCategoryController::class,'disable']);
+    Route::post('getByID', [SecurityCategoryController::class,'getByID']);
 });
 
 Route::group(['prefix'=>'eventType','as'=>'eventType/'], function(){
@@ -93,6 +97,7 @@ Route::group(['prefix'=>'eventType','as'=>'eventType/'], function(){
     Route::post('edit', [EventTypeController::class,'edit']);
     Route::post('enable', [EventTypeController::class,'enable']);
     Route::post('disable', [EventTypeController::class,'disable']);
+    Route::post('getByID', [EventTypeController::class,'getByID']);
 });
 
 Route::group(['prefix'=>'accreditationCategory','as'=>'accreditationCategory/'], function(){
@@ -101,6 +106,16 @@ Route::group(['prefix'=>'accreditationCategory','as'=>'accreditationCategory/'],
     Route::post('edit', [AccreditationCategoryController::class,'edit']);
     Route::post('enable', [AccreditationCategoryController::class,'enable']);
     Route::post('disable', [AccreditationCategoryController::class,'disable']);
+    Route::post('getByID', [AccreditationCategoryController::class,'getByID']);
+});
+
+Route::group(['prefix'=>'emailTemplate','as'=>'emailTemplate/'], function(){
+    Route::post('getAll', [EmailTemplateController::class,'getAll']);
+    // Route::post('create', [SecurityCategoryController::class,'create']);
+    Route::post('edit', [EmailTemplateController::class,'edit']);
+    // Route::post('enable', [SecurityCategoryController::class,'enable']);
+    // Route::post('disable', [SecurityCategoryController::class,'disable']);
+    Route::post('getByID', [EmailTemplateController::class,'getByID']);
 });
 
 

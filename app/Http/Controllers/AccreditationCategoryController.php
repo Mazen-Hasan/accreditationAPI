@@ -65,6 +65,17 @@ class AccreditationCategoryController extends Controller
         $params = [$lang, $user_token, $accreditation_category_id, 0];
 
         $outParams = [];
-        return ExecuteStoredProcedureTrait::execute('accreditation_category_change_status',$params,$outParams);
+        return ExecuteStoredProcedureTrait::executeOutParams('accreditation_category_change_status',$params,$outParams);
+    }
+
+    public function getByID(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $accreditation_category_id = $request->input('accreditation_category_id');
+
+        $params = [$lang, $user_token, $accreditation_category_id];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('accreditation_category_get_by_id',$params, $outParams);
     }
 }

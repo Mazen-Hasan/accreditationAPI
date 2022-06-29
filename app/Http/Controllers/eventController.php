@@ -119,9 +119,26 @@ class eventController extends Controller
         // $offset = $offset;
         // $size = $size;
         // $filters = $filters;
-
+        $outParams = ['@gridcount'];
         $params = [$lang, $user_token, $offset,$size,$filters];
-        return ExecuteStoredProcedureTrait::execute2('event_get_all',$params);
+        return ExecuteStoredProcedureTrait::executeOutParams('event_get_all',$params,$outParams);
+    }
+
+    public function getAllWithArchived(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $offset = $request->input('offset');
+        $size = $request->input('size');
+        $filters = $request->input('filters');
+        //$lang = $lang;
+        //$user_token = $token;
+        // $offset = $offset;
+        // $size = $size;
+        // $filters = $filters;
+        $outParams = ['@gridcount'];
+        $params = [$lang, $user_token, $offset,$size,$filters];
+        return ExecuteStoredProcedureTrait::executeOutParams('event_get_all_with_archived',$params,$outParams);
     }
 
     public function getAllCompanies2($token,$lang,$eventId,$offset,$size,$filters)
@@ -155,4 +172,6 @@ class eventController extends Controller
         $params = [$lang, $user_token, $eventID, $offset,$size,$filters];
         return ExecuteStoredProcedureTrait::execute2('event_company_get_all',$params);
     }
+
+
 }

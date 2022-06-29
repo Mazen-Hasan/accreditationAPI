@@ -64,6 +64,17 @@ class CompanyCategoryController extends Controller
         $params = [$lang, $user_token, $company_category_id, 0];
 
         $outParams = [];
-        return ExecuteStoredProcedureTrait::execute('company_category_change_status',$params,$outParams);
+        return ExecuteStoredProcedureTrait::executeOutParams('company_category_change_status',$params,$outParams);
+    }
+
+    public function getByID(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $company_category_id = $request->input('company_category_id');
+
+        $params = [$lang, $user_token, $company_category_id];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_category_get_by_id',$params, $outParams);
     }
 }
