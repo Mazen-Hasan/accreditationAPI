@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\ExecuteStoredProcedureTrait;
 use Illuminate\Http\Request;
 
-class venue extends Controller
+class venueController extends Controller
 {
 
     public function index()

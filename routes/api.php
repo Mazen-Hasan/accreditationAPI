@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\eventController;
+use App\Http\Controllers\RegistrationFormController;
+use App\Http\Controllers\RegistrationFormFieldController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\CompanyCategoryController;
 use App\Http\Controllers\EventTypeController;
@@ -10,7 +12,7 @@ use App\Http\Controllers\EmailTemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\venue;
+use App\Http\Controllers\venueController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,16 +24,16 @@ use App\Http\Controllers\venue;
 |
 */
 
-Route::group(['prefix'=>'venue','as'=>'venue/'], function(){
-    Route::post('getByID', [venue::class,'getByID']);
+Route::group(['prefix'=>'venueController','as'=>'venueController/'], function(){
+    Route::post('getByID', [venueController::class,'getByID']);
 
-    Route::post('create', [venue::class,'create']);
+    Route::post('create', [venueController::class,'create']);
 
-    Route::post('enable', [venue::class,'enable']);
+    Route::post('enable', [venueController::class,'enable']);
 
-    Route::post('disable', [venue::class,'disable']);
+    Route::post('disable', [venueController::class,'disable']);
 
-    Route::post('update', [venue::class,'update']);
+    Route::post('update', [venueController::class,'update']);
 });
 
 Route::group(['prefix'=>'user','as'=>'user/'], function(){
@@ -44,6 +46,36 @@ Route::group(['prefix'=>'user','as'=>'user/'], function(){
     Route::post('disable', [userController::class,'disable']);
 
     Route::post('login', [userController::class,'login']);
+});
+
+Route::group(['prefix'=>'registrationForm','as'=>'registrationForm/'], function(){
+    Route::post('getByID', [RegistrationFormController::class,'getByID']);
+
+    Route::post('getAll', [RegistrationFormController::class,'getAll']);
+
+    Route::post('create', [RegistrationFormController::class,'create']);
+
+    Route::post('enable', [RegistrationFormController::class,'enable']);
+
+    Route::post('disable', [RegistrationFormController::class,'disable']);
+
+    Route::post('lock', [RegistrationFormController::class,'lock']);
+
+    Route::post('unlock', [RegistrationFormController::class,'unlock']);
+
+    Route::post('update', [RegistrationFormController::class,'update']);
+});
+
+Route::group(['prefix'=>'registrationFormField','as'=>'registrationFormField/'], function(){
+    Route::post('getByID', [RegistrationFormFieldController::class,'getByID']);
+
+    Route::post('getAll', [RegistrationFormFieldController::class,'getAll']);
+
+    Route::post('create', [RegistrationFormFieldController::class,'create']);
+
+    Route::post('remove', [RegistrationFormFieldController::class,'remove']);
+
+    Route::post('update', [RegistrationFormFieldController::class,'update']);
 });
 
 Route::group(['prefix'=>'event','as'=>'event/'], function(){
