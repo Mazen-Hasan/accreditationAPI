@@ -3,6 +3,7 @@
 use App\Http\Controllers\eventController;
 use App\Http\Controllers\RegistrationFormController;
 use App\Http\Controllers\RegistrationFormFieldController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\CompanyCategoryController;
 use App\Http\Controllers\EventTypeController;
@@ -24,7 +25,7 @@ use App\Http\Controllers\venueController;
 |
 */
 
-Route::group(['prefix'=>'venueController','as'=>'venueController/'], function(){
+Route::group(['prefix'=>'venue','as'=>'venue/'], function(){
     Route::post('getByID', [venueController::class,'getByID']);
 
     Route::post('create', [venueController::class,'create']);
@@ -76,6 +77,22 @@ Route::group(['prefix'=>'registrationFormField','as'=>'registrationFormField/'],
     Route::post('remove', [RegistrationFormFieldController::class,'remove']);
 
     Route::post('update', [RegistrationFormFieldController::class,'update']);
+});
+
+Route::group(['prefix'=>'role','as'=>'role/'], function(){
+    Route::post('getByID', [roleController::class,'getByID']);
+
+    Route::post('getAll', [roleController::class,'getAll']);
+
+    Route::post('create', [roleController::class,'create']);
+
+    Route::post('enable', [roleController::class,'enable']);
+
+    Route::post('disable', [roleController::class,'disable']);
+
+    Route::post('update', [roleController::class,'update']);
+
+    Route::post('remove', [roleController::class,'remove']);
 });
 
 Route::group(['prefix'=>'event','as'=>'event/'], function(){
