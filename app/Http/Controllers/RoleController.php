@@ -78,4 +78,25 @@ class RoleController extends Controller
         $params = [$lang, $user_token, $role_id];
         return ExecuteStoredProcedureTrait::execute('role_remove',$params);
     }
+
+    public function permissionsGetAll(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $role_id = $request->input('role_id');
+
+        $params = [$lang, $user_token, $role_id];
+        return ExecuteStoredProcedureTrait::execute('role_permissions_get_all',$params);
+    }
+
+    public function permissionsUpdate(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $role_id = $request->input('role_id');
+        $permission_ids = $request->input('permission_ids');
+
+        $params = [$lang, $user_token, $role_id, $permission_ids];
+        return ExecuteStoredProcedureTrait::execute('role_permissions_update',$params);
+    }
 }

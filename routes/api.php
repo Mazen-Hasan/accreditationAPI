@@ -93,6 +93,12 @@ Route::group(['prefix'=>'role','as'=>'role/'], function(){
     Route::post('update', [roleController::class,'update']);
 
     Route::post('remove', [roleController::class,'remove']);
+
+    Route::post('permissions/getAll', [roleController::class,'permissionsGetAll']);
+
+    Route::post('permissions/update', [roleController::class,'permissionsUpdate']);
+
+
 });
 
 Route::group(['prefix'=>'event','as'=>'event/'], function(){
