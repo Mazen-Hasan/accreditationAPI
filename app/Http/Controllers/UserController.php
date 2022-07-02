@@ -75,4 +75,25 @@ class userController extends Controller
         $params = [$lang, $user_token, $venue_id, $venue_name, $venue_status];
        // return ExecuteStoredProcedureTrait::execute('venue_update',$params);
     }
+
+    public function userPermissionsGetAll(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $user_id = $request->input('user_id');
+
+        $params = [$lang, $user_token, $user_id];
+        return ExecuteStoredProcedureTrait::execute('user_permissions_get_all',$params);
+    }
+
+    public function userPermissionsUpdate(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $user_id = $request->input('user_id');
+        $permission_ids = $request->input('permission_ids');
+
+        $params = [$lang, $user_token, $user_id, $permission_ids];
+        return ExecuteStoredProcedureTrait::execute('user_permissions_update',$params);
+    }
 }

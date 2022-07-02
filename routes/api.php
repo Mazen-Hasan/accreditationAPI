@@ -47,6 +47,10 @@ Route::group(['prefix'=>'user','as'=>'user/'], function(){
     Route::post('disable', [userController::class,'disable']);
 
     Route::post('login', [userController::class,'login']);
+
+    Route::post('permissions/getAll', [userController::class,'userPermissionsGetAll']);
+
+    Route::post('permissions/update', [userController::class,'userPermissionsUpdate']);
 });
 
 Route::group(['prefix'=>'registrationForm','as'=>'registrationForm/'], function(){
@@ -97,8 +101,6 @@ Route::group(['prefix'=>'role','as'=>'role/'], function(){
     Route::post('permissions/getAll', [roleController::class,'permissionsGetAll']);
 
     Route::post('permissions/update', [roleController::class,'permissionsUpdate']);
-
-
 });
 
 Route::group(['prefix'=>'event','as'=>'event/'], function(){
