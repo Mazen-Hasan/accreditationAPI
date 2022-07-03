@@ -23,7 +23,9 @@ class RoleController extends Controller
         $user_token = $request->header('user_token');
 
         $params = [$lang, $user_token];
-        return ExecuteStoredProcedureTrait::execute('role_get_all',$params);
+
+        $outParams = ['@size'];
+        return ExecuteStoredProcedureTrait::executeOutParams('role_get_all',$params, $outParams);
     }
 
     public function create(Request $request)
@@ -86,7 +88,9 @@ class RoleController extends Controller
         $role_id = $request->input('role_id');
 
         $params = [$lang, $user_token, $role_id];
-        return ExecuteStoredProcedureTrait::execute('role_permissions_get_all',$params);
+
+        $outParams = ['@size'];
+        return ExecuteStoredProcedureTrait::executeOutParams('role_permissions_get_all',$params, $outParams);
     }
 
     public function permissionsUpdate(Request $request)
