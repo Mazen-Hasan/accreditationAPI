@@ -89,7 +89,7 @@ class RoleController extends Controller
 
         $params = [$lang, $user_token, $role_id];
 
-        $outParams = ['@size'];
+        $outParams = ['@role_name','@size'];
         return ExecuteStoredProcedureTrait::executeOutParams('role_permissions_get_all',$params, $outParams);
     }
 

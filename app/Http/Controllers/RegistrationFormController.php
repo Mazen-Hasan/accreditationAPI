@@ -23,7 +23,9 @@ class RegistrationFormController extends Controller
         $user_token = $request->header('user_token');
 
         $params = [$lang, $user_token];
-        return ExecuteStoredProcedureTrait::execute('registration_form_get_all',$params);
+
+        $outParams = ['@size'];
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_get_all',$params, $outParams);
     }
 
     public function create(Request $request)

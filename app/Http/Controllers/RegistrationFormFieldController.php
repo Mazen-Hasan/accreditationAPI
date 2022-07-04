@@ -24,7 +24,9 @@ class RegistrationFormFieldController extends Controller
         $registration_form_id = $request->input('registration_form_id');
 
         $params = [$lang, $user_token, $registration_form_id];
-        return ExecuteStoredProcedureTrait::execute('registration_form_field_get_all',$params);
+
+        $outParams = ['@registration_form_name','@size'];
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_field_get_all',$params, $outParams);
     }
 
     public function create(Request $request)
