@@ -67,4 +67,15 @@ class RegistrationFormFieldController extends Controller
         $params = [$lang, $user_token, $registration_form_field_id, 0];
         return ExecuteStoredProcedureTrait::execute('registration_form_field_remove',$params);
     }
+
+    public function fieldTypeGetAll(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+
+        $params = [$lang, $user_token];
+
+        $outParams = ['@size'];
+        return ExecuteStoredProcedureTrait::executeOutParams('field_type_get_all',$params, $outParams);
+    }
 }

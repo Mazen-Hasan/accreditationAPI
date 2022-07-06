@@ -14,7 +14,9 @@ class RegistrationFormController extends Controller
         $id = $request->input('id');
 
         $params = [$lang, $user_token, $id];
-        return ExecuteStoredProcedureTrait::execute('registration_form_get_by_id',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_get_by_id',$params, $outParams);
     }
 
     public function getAll(Request $request)
@@ -23,8 +25,8 @@ class RegistrationFormController extends Controller
         $user_token = $request->header('user_token');
 
         $params = [$lang, $user_token];
-
         $outParams = ['@size'];
+
         return ExecuteStoredProcedureTrait::executeOutParams('registration_form_get_all',$params, $outParams);
     }
 
@@ -36,7 +38,9 @@ class RegistrationFormController extends Controller
         $status = $request->input('status');
 
         $params = [$lang, $user_token, $registration_form_name, $status];
-        return ExecuteStoredProcedureTrait::execute('registration_form_add',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_add',$params, $outParams);
     }
 
     public function enable(Request $request)
@@ -46,7 +50,9 @@ class RegistrationFormController extends Controller
         $id = $request->input('id');
 
         $params = [$lang, $user_token, $id, 1];
-        return ExecuteStoredProcedureTrait::execute('registration_form_change_status',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_change_status',$params, $outParams);
     }
 
     public function disable(Request $request)
@@ -56,7 +62,9 @@ class RegistrationFormController extends Controller
         $id = $request->input('id');
 
         $params = [$lang, $user_token, $id, 0];
-        return ExecuteStoredProcedureTrait::execute('registration_form_change_status',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_change_status',$params, $outParams);
     }
 
     public function update(Request $request)
@@ -68,7 +76,9 @@ class RegistrationFormController extends Controller
         $status = $request->input('status');
 
         $params = [$lang, $user_token, $id, $name, $status];
-        return ExecuteStoredProcedureTrait::execute('registration_form_update',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_update',$params, $outParams);
     }
 
     public function lock(Request $request)
@@ -78,7 +88,9 @@ class RegistrationFormController extends Controller
         $id = $request->input('id');
 
         $params = [$lang, $user_token, $id, 1];
-        return ExecuteStoredProcedureTrait::execute('registration_form_change_lock',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_change_lock',$params, $outParams);
     }
 
     public function unlock(Request $request)
@@ -88,6 +100,8 @@ class RegistrationFormController extends Controller
         $id = $request->input('id');
 
         $params = [$lang, $user_token, $id, 0];
-        return ExecuteStoredProcedureTrait::execute('registration_form_change_lock',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_change_lock',$params, $outParams);
     }
 }

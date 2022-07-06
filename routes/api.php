@@ -81,6 +81,8 @@ Route::group(['prefix'=>'registrationFormField','as'=>'registrationFormField/'],
     Route::post('remove', [RegistrationFormFieldController::class,'remove']);
 
     Route::post('update', [RegistrationFormFieldController::class,'update']);
+
+    Route::post('fieldTypeGetAll', [RegistrationFormFieldController::class,'fieldTypeGetAll']);
 });
 
 Route::group(['prefix'=>'role','as'=>'role/'], function(){
