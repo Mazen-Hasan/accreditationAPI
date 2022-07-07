@@ -14,7 +14,9 @@ class RegistrationFormFieldController extends Controller
         $registration_form_field_id = $request->input('registration_form_field_id');
 
         $params = [$lang, $user_token, $registration_form_field_id];
-        return ExecuteStoredProcedureTrait::execute('registration_form_field_get_by_id',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_field_get_by_id',$params, $outParams);
     }
 
     public function getAll(Request $request)
@@ -43,7 +45,9 @@ class RegistrationFormFieldController extends Controller
         $is_mandatory = $request->input('is_mandatory');
 
         $params = [$lang, $user_token, $registration_form_id, $label_ar, $label_en, $field_type_id, $min_char, $max_char, $order, $is_mandatory];
-        return ExecuteStoredProcedureTrait::execute('registration_form_field_add',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_field_add',$params, $outParams);
     }
 
     public function update(Request $request)
@@ -51,21 +55,30 @@ class RegistrationFormFieldController extends Controller
         $lang = $request->header('Accept-Language');
         $user_token = $request->header('user_token');
         $registration_form_field_id = $request->input('registration_form_field_id');
-        $registration_form_field_name = $request->input('registration_form_field_name');
-        $registration_form_field_status = $request->input('status');
+        $label_ar = $request->input('label_ar');
+        $label_en = $request->input('label_en');
+        $field_type_id = $request->input('field_type_id');
+        $min_char = $request->input('min_char');
+        $max_char = $request->input('max_char');
+        $order = $request->input('order');
+        $is_mandatory = $request->input('is_mandatory');
 
-        $params = [$lang, $user_token, $registration_form_field_id, $registration_form_field_name, $registration_form_field_status];
-        return ExecuteStoredProcedureTrait::execute('registration_form_field_update',$params);
+        $params = [$lang, $user_token, $registration_form_field_id, $label_ar, $label_en, $field_type_id, $min_char, $max_char, $order, $is_mandatory];
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_field_update',$params, $outParams);
     }
 
-    public function remove(Request $request)
+    public function delete(Request $request)
     {
         $lang = $request->header('Accept-Language');
         $user_token = $request->header('user_token');
         $registration_form_field_id = $request->input('registration_form_field_id');
 
-        $params = [$lang, $user_token, $registration_form_field_id, 0];
-        return ExecuteStoredProcedureTrait::execute('registration_form_field_remove',$params);
+        $params = [$lang, $user_token, $registration_form_field_id];
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('registration_form_field_delete',$params, $outParams);
     }
 
     public function fieldTypeGetAll(Request $request)

@@ -82,6 +82,8 @@ Route::group(['prefix'=>'registrationFormField','as'=>'registrationFormField/'],
 
     Route::post('update', [RegistrationFormFieldController::class,'update']);
 
+    Route::post('delete', [RegistrationFormFieldController::class,'delete']);
+
     Route::post('fieldTypeGetAll', [RegistrationFormFieldController::class,'fieldTypeGetAll']);
 });
 
