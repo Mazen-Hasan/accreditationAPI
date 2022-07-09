@@ -3,6 +3,7 @@
 use App\Http\Controllers\eventController;
 use App\Http\Controllers\RegistrationFormController;
 use App\Http\Controllers\RegistrationFormFieldController;
+use App\Http\Controllers\RegistrationFormFieldElementController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\CompanyCategoryController;
@@ -78,13 +79,23 @@ Route::group(['prefix'=>'registrationFormField','as'=>'registrationFormField/'],
 
     Route::post('create', [RegistrationFormFieldController::class,'create']);
 
-    Route::post('remove', [RegistrationFormFieldController::class,'remove']);
-
     Route::post('update', [RegistrationFormFieldController::class,'update']);
 
     Route::post('delete', [RegistrationFormFieldController::class,'delete']);
 
     Route::post('fieldTypeGetAll', [RegistrationFormFieldController::class,'fieldTypeGetAll']);
+});
+
+Route::group(['prefix'=>'registrationFormFieldElement','as'=>'registrationFormFieldElement/'], function(){
+    Route::post('getByID', [RegistrationFormFieldElementController::class,'getByID']);
+
+    Route::post('getAll', [RegistrationFormFieldElementController::class,'getAll']);
+
+    Route::post('create', [RegistrationFormFieldElementController::class,'create']);
+
+    Route::post('update', [RegistrationFormFieldElementController::class,'update']);
+
+    Route::post('delete', [RegistrationFormFieldElementController::class,'delete']);
 });
 
 Route::group(['prefix'=>'role','as'=>'role/'], function(){
