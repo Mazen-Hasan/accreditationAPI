@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\eventController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\RegistrationFormController;
 use App\Http\Controllers\RegistrationFormFieldController;
 use App\Http\Controllers\RegistrationFormFieldElementController;
@@ -10,6 +10,7 @@ use App\Http\Controllers\CompanyCategoryController;
 use App\Http\Controllers\EventTypeController;
 use App\Http\Controllers\SecurityCategoryController;
 use App\Http\Controllers\AccreditationCategoryController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmailTemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -99,49 +100,50 @@ Route::group(['prefix'=>'registrationFormFieldElement','as'=>'registrationFormFi
 });
 
 Route::group(['prefix'=>'role','as'=>'role/'], function(){
-    Route::post('getByID', [roleController::class,'getByID']);
+    Route::post('getByID', [RoleController::class,'getByID']);
 
-    Route::post('getAll', [roleController::class,'getAll']);
+    Route::post('getAll', [RoleController::class,'getAll']);
 
-    Route::post('create', [roleController::class,'create']);
+    Route::post('create', [RoleController::class,'create']);
 
-    Route::post('enable', [roleController::class,'enable']);
+    Route::post('enable', [RoleController::class,'enable']);
 
-    Route::post('disable', [roleController::class,'disable']);
+    Route::post('disable', [RoleController::class,'disable']);
 
-    Route::post('update', [roleController::class,'update']);
+    Route::post('update', [RoleController::class,'update']);
 
-    Route::post('remove', [roleController::class,'remove']);
+    Route::post('remove', [RoleController::class,'remove']);
 
-    Route::post('permissions/getAll', [roleController::class,'permissionsGetAll']);
+    Route::post('permissions/getAll', [RoleController::class,'permissionsGetAll']);
 
-    Route::post('permissions/update', [roleController::class,'permissionsUpdate']);
+    Route::post('permissions/update', [RoleController::class,'permissionsUpdate']);
 });
 
 Route::group(['prefix'=>'event','as'=>'event/'], function(){
-    Route::post('getByID', [eventController::class,'getByID']);
+    Route::post('getByID', [EventController::class,'getByID']);
 
-    Route::post('create', [eventController::class,'create']);
+    Route::post('create', [EventController::class,'create']);
 
-    Route::post('enable', [eventController::class,'enable']);
+    Route::post('enable', [EventController::class,'enable']);
 
-    Route::post('disable', [eventController::class,'disable']);
+    Route::post('disable', [EventController::class,'disable']);
 
-    Route::post('getList', [eventController::class,'getList']);
+    Route::post('getList', [EventController::class,'getList']);
 
-    Route::post('getAll', [eventController::class,'getAll']);
-    Route::post('getAllWithArchived', [eventController::class,'getAllWithArchived']);
+    Route::post('getAll', [EventController::class,'getAll']);
+    Route::post('getAllWithArchived', [EventController::class,'getAllWithArchived']);
+    Route::post('eventAdminEventsGetAll', [EventController::class,'eventAdminEventsGetAll']);
 
     //Route::get('getAll/{token}/{lang}/{offset}/{size}/{filters}', [eventController::class,'getAll']);
 
-    Route::get('test', [eventController::class,'test']);
+    Route::get('test', [EventController::class,'test']);
 
     Route::group(['prefix'=>'company','as'=>'company/'], function(){
         // Route::post('getAll', function (Request $request){
         //     return 'test';
         //     });
         //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
-        Route::post('getAll', [eventController::class,'getAllCompanies']);
+        Route::post('getAll', [EventController::class,'getAllCompanies']);
     });
 });
 
@@ -188,6 +190,10 @@ Route::group(['prefix'=>'emailTemplate','as'=>'emailTemplate/'], function(){
     // Route::post('enable', [SecurityCategoryController::class,'enable']);
     // Route::post('disable', [SecurityCategoryController::class,'disable']);
     Route::post('getByID', [EmailTemplateController::class,'getByID']);
+});
+
+Route::group(['prefix'=>'company','as'=>'company/'], function(){
+    Route::post('invite', [CompanyController::class,'invite']);
 });
 
 
