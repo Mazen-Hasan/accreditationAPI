@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\eventController;
 use App\Http\Controllers\RegistrationFormController;
 use App\Http\Controllers\RegistrationFormFieldController;
 use App\Http\Controllers\RegistrationFormFieldElementController;
@@ -97,6 +98,22 @@ Route::group(['prefix'=>'registrationFormFieldElement','as'=>'registrationFormFi
     Route::post('update', [RegistrationFormFieldElementController::class,'update']);
 
     Route::post('delete', [RegistrationFormFieldElementController::class,'delete']);
+});
+
+Route::group(['prefix'=>'badge','as'=>'badge/'], function(){
+    Route::post('getByID', [BadgeController::class,'getByID']);
+
+    Route::post('getAll', [BadgeController::class,'getAll']);
+
+    Route::post('create', [BadgeController::class,'create']);
+
+    Route::post('lock', [BadgeController::class,'lock']);
+
+    Route::post('unlock', [BadgeController::class,'unlock']);
+
+    Route::post('update', [BadgeController::class,'update']);
+
+    Route::post('getAvailableRegistrationForm', [BadgeController::class,'getAvailableRegistrationForm']);
 });
 
 Route::group(['prefix'=>'role','as'=>'role/'], function(){
