@@ -13,6 +13,8 @@ use App\Http\Controllers\SecurityCategoryController;
 use App\Http\Controllers\AccreditationCategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmailTemplateController;
+use App\Http\Controllers\ParticipantController;
+use App\Http\Controllers\FocalPointController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -162,6 +164,14 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
         //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
         Route::post('getAll', [EventController::class,'getAllCompanies']);
     });
+
+    Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
+        // Route::post('getAll', function (Request $request){
+        //     return 'test';
+        //     });
+        //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
+        Route::post('getAll', [EventController::class,'getAllParticipants']);
+    });
 });
 
 Route::group(['prefix'=>'companyCategory','as'=>'companyCategory/'], function(){
@@ -211,6 +221,28 @@ Route::group(['prefix'=>'emailTemplate','as'=>'emailTemplate/'], function(){
 
 Route::group(['prefix'=>'company','as'=>'company/'], function(){
     Route::post('invite', [CompanyController::class,'invite']);
+
+    Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
+        Route::post('getAll', [CompanyController::class,'getAllParticipants']);
+    });
+
+    Route::post('getList', [CompanyController::class,'getList']);
+});
+
+Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
+    Route::post('rejectByEventAdmin', [ParticipantController::class,'rejectByEventAdmin']);
+
+    Route::post('rejectToCorrectByEventAdmin', [ParticipantController::class,'rejectToCorrectByEventAdmin']);
+
+    Route::post('approveByEventAdmin', [ParticipantController::class,'approveByEventAdmin']);
+
+    
+});
+
+Route::group(['prefix'=>'focalPoint','as'=>'focalPoint/'], function(){
+    Route::post('create', [FocalPointController::class,'create']);
+
+    
 });
 
 
