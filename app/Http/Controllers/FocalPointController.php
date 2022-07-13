@@ -39,4 +39,15 @@ class FocalPointController extends Controller
         $outParams = [];
         return ExecuteStoredProcedureTrait::executeOutParams('focal_point_get_by_email',$params, $outParams);
     }
+
+    public function getByID(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $focal_point_id = $request->input('focal_point_id');
+
+        $params = [$lang, $user_token, $focal_point_id];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('focal_point_get_by_id',$params, $outParams);
+    }
 }

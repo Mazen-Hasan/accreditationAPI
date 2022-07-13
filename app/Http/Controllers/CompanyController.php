@@ -118,4 +118,38 @@ class CompanyController extends Controller
         $outParams = [];
         return ExecuteStoredProcedureTrait::executeOutParams('company_add',$params, $outParams);
     }
+
+    public function edit(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $company_id  = $request->input('company_id');
+        $name  = $request->input('name');
+        $address  = $request->input('address');
+        $telephone  = $request->input('telephone');
+        $website  = $request->input('website');
+        $country_id  = $request->input('country_id');
+        $city_id  = $request->input('city_id');
+        $category_id = $request->input('category_id');
+        $status  = $request->input('status');
+        $focal_point_id  = $request->input('focal_point_id');
+        $event_id  = $request->input('event_id');
+        $size  = $request->input('size');
+        $need_management  = $request->input('need_management');
+        $params = [$lang, $user_token ,$company_id, $name,$address,$telephone,$website,$country_id,$city_id,$category_id, $status,$focal_point_id,$event_id,$size,$need_management];
+
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_update',$params, $outParams);
+    }
+
+    public function getByID(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+        $company_id = $request->input('company_id');
+        $params = [$lang, $user_token, $event_id, $company_id];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_get_by_id',$params, $outParams);
+    }
 }

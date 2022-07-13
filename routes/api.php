@@ -234,6 +234,10 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
     });
 
     Route::post('getList', [CompanyController::class,'getList']);
+
+    Route::post('getByID', [CompanyController::class,'getByID']);
+
+    Route::post('edit', [CompanyController::class,'edit']);
 });
 
 Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
@@ -250,6 +254,8 @@ Route::group(['prefix'=>'focalPoint','as'=>'focalPoint/'], function(){
     Route::post('create', [FocalPointController::class,'create']);
 
     Route::post('getByEmail', [FocalPointController::class,'getByEmail']);
+
+    Route::post('getByID', [FocalPointController::class,'getByID']);
 });
 
 
