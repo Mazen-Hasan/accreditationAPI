@@ -28,4 +28,15 @@ class FocalPointController extends Controller
         $outParams = [];
         return ExecuteStoredProcedureTrait::executeOutParams('focal_point_add',$params, $outParams);
     }
+
+    public function getByEmail(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $focal_point_email = $request->input('focal_point_email');
+
+        $params = [$lang, $user_token, $focal_point_email];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('focal_point_get_by_email',$params, $outParams);
+    }
 }

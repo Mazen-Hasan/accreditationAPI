@@ -163,6 +163,7 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
         //     });
         //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
         Route::post('getAll', [EventController::class,'getAllCompanies']);
+
     });
 
     Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
@@ -222,8 +223,14 @@ Route::group(['prefix'=>'emailTemplate','as'=>'emailTemplate/'], function(){
 Route::group(['prefix'=>'company','as'=>'company/'], function(){
     Route::post('invite', [CompanyController::class,'invite']);
 
+    Route::post('create', [CompanyController::class,'create']);
+
     Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
         Route::post('getAll', [CompanyController::class,'getAllParticipants']);
+    });
+
+    Route::group(['prefix'=>'city','as'=>'city/'], function(){
+        Route::post('getAll', [CompanyController::class,'getAllCity']);
     });
 
     Route::post('getList', [CompanyController::class,'getList']);
@@ -242,7 +249,7 @@ Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
 Route::group(['prefix'=>'focalPoint','as'=>'focalPoint/'], function(){
     Route::post('create', [FocalPointController::class,'create']);
 
-    
+    Route::post('getByEmail', [FocalPointController::class,'getByEmail']);
 });
 
 

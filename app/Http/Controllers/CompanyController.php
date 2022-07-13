@@ -85,4 +85,37 @@ class CompanyController extends Controller
 
         return $returnedJson;
     }
+
+    public function getAllCity(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $country_id = $request->input('country_id');
+        $params = [$lang, $user_token, $country_id ];
+
+        $outParams = ['@size'];
+        return ExecuteStoredProcedureTrait::executeOutParams('city_get_all',$params, $outParams);
+    }
+
+    public function create(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $name  = $request->input('name');
+        $address  = $request->input('address');
+        $telephone  = $request->input('telephone');
+        $website  = $request->input('website');
+        $country_id  = $request->input('country_id');
+        $city_id  = $request->input('city_id');
+        $category_id = $request->input('category_id');
+        $status  = $request->input('status');
+        $focal_point_id  = $request->input('focal_point_id');
+        $event_id  = $request->input('event_id');
+        $size  = $request->input('size');
+        $need_management  = $request->input('need_management');
+        $params = [$lang, $user_token ,$name,$address,$telephone,$website,$country_id,$city_id,$category_id, $status,$focal_point_id,$event_id,$size,$need_management];
+
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_add',$params, $outParams);
+    }
 }
