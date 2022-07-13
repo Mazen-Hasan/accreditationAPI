@@ -141,6 +141,8 @@ Route::group(['prefix'=>'role','as'=>'role/'], function(){
 Route::group(['prefix'=>'event','as'=>'event/'], function(){
     Route::post('getByID', [EventController::class,'getByID']);
 
+    Route::post('infoGetByID', [EventController::class,'eventInfoGetByID']);
+
     Route::post('create', [EventController::class,'create']);
 
     Route::post('enable', [EventController::class,'enable']);
@@ -150,18 +152,14 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
     Route::post('getList', [EventController::class,'getList']);
 
     Route::post('getAll', [EventController::class,'getAll']);
-    Route::post('getAllWithArchived', [EventController::class,'getAllWithArchived']);
-    Route::post('eventAdminEventsGetAll', [EventController::class,'eventAdminEventsGetAll']);
 
-    //Route::get('getAll/{token}/{lang}/{offset}/{size}/{filters}', [eventController::class,'getAll']);
+    Route::post('getAllWithArchived', [EventController::class,'getAllWithArchived']);
+
+    Route::post('eventAdminEventsGetAll', [EventController::class,'eventAdminEventsGetAll']);
 
     Route::get('test', [EventController::class,'test']);
 
     Route::group(['prefix'=>'company','as'=>'company/'], function(){
-        // Route::post('getAll', function (Request $request){
-        //     return 'test';
-        //     });
-        //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
         Route::post('getAll', [EventController::class,'getAllCompanies']);
 
     });
@@ -173,6 +171,47 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
         //Route::get('getAll/{token}/{lang}/{eventId}/{offset}/{size}/{filters}', [eventController::class,'getAllCompanies']);
         Route::post('getAll', [EventController::class,'getAllParticipants']);
     });
+
+    Route::group(['prefix'=>'admin','as'=>'admin/'], function(){
+        Route::post('getAll', [EventController::class,'eventAdminGetAll']);
+
+        Route::post('getByEventID', [EventController::class,'eventAdminGetByEventID']);
+
+        Route::post('add', [EventController::class,'eventAdminAdd']);
+
+        Route::post('remove', [EventController::class,'eventAdminRemove']);
+    });
+
+    Route::group(['prefix'=>'securityOfficer','as'=>'securityOfficer/'], function(){
+        Route::post('getAll', [EventController::class,'securityOfficerGetAll']);
+
+        Route::post('getByEventID', [EventController::class,'securityOfficerGetByEventID']);
+
+        Route::post('add', [EventController::class,'securityOfficerAdd']);
+
+        Route::post('remove', [EventController::class,'securityOfficerRemove']);
+    });
+
+    Route::group(['prefix'=>'accreditationCategory','as'=>'accreditationCategory/'], function(){
+        Route::post('getAll', [EventController::class,'accreditationCategoryGetAll']);
+
+        Route::post('getByEventID', [EventController::class,'accreditationCategoryGetByEventID']);
+
+        Route::post('add', [EventController::class,'accreditationCategoryAdd']);
+
+        Route::post('remove', [EventController::class,'accreditationCategoryRemove']);
+    });
+
+    Route::group(['prefix'=>'securityCategory','as'=>'securityCategory/'], function(){
+        Route::post('getAll', [EventController::class,'securityCategoryGetAll']);
+
+        Route::post('getByEventID', [EventController::class,'securityCategoryGetByEventID']);
+
+        Route::post('add', [EventController::class,'securityCategoryAdd']);
+
+        Route::post('remove', [EventController::class,'securityCategoryRemove']);
+    });
+
 });
 
 Route::group(['prefix'=>'companyCategory','as'=>'companyCategory/'], function(){
