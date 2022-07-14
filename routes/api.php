@@ -143,11 +143,9 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
 
     Route::post('infoGetByID', [EventController::class,'eventInfoGetByID']);
 
+    Route::post('complete', [EventController::class,'eventComplete']);
+
     Route::post('create', [EventController::class,'create']);
-
-    Route::post('enable', [EventController::class,'enable']);
-
-    Route::post('disable', [EventController::class,'disable']);
 
     Route::post('getList', [EventController::class,'getList']);
 
@@ -156,8 +154,6 @@ Route::group(['prefix'=>'event','as'=>'event/'], function(){
     Route::post('getAllWithArchived', [EventController::class,'getAllWithArchived']);
 
     Route::post('eventAdminEventsGetAll', [EventController::class,'eventAdminEventsGetAll']);
-
-    Route::get('test', [EventController::class,'test']);
 
     Route::group(['prefix'=>'company','as'=>'company/'], function(){
         Route::post('getAll', [EventController::class,'getAllCompanies']);
@@ -282,7 +278,7 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
 
     Route::group(['prefix'=>'accreditationCategory','as'=>'accreditationCategory/'], function(){
         Route::post('getList', [CompanyController::class,'accreditationCategoryGetList']);
-        
+
         Route::post('getAll', [CompanyController::class,'accreditationCategoryGetAll']);
 
         Route::post('getByID', [CompanyController::class,'accreditationCategoryGetByID']);
@@ -313,7 +309,7 @@ Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
 
     Route::post('sendRequest', [ParticipantController::class,'sendParticipationRequest']);
 
-    
+
 });
 
 Route::group(['prefix'=>'focalPoint','as'=>'focalPoint/'], function(){

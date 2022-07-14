@@ -22,30 +22,30 @@ class EventController extends Controller
     {
         $lang = $request->header('Accept-Language');
         $user_token = $request->header('user_token');
-        $venue_name = $request->input('venue_name');
 
-        $params = [$lang, $user_token, $venue_name];
-        //return ExecuteStoredProcedureTrait::execute('venue_add',$params);
-    }
+        $event_name = $request->input('event_name');
+        $size = $request->input('size');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        $acc_start_date = $request->input('acc_start_date');
+        $acc_end_date = $request->input('acc_end_date');
+        $organizer = $request->input('organizer');
+        $owner = $request->input('owner');
+        $event_type = $request->input('event_type');
+        $registration_form = $request->input('registration_form');
+        $location = $request->input('location');
+        $status = $request->input('status');
+        $event_admin = $request->input('event_admin');
+        $security_officer = $request->input('security_officer');
+        $security_category = $request->input('security_category');
+        $approval_option = $request->input('approval_option');
 
-    public function enable(Request $request)
-    {
-        $lang = $request->header('Accept-Language');
-        $user_token = $request->header('user_token');
-        $venue_id = $request->input('venue_id');
-
-        $params = [$lang, $user_token, $venue_id, 1];
-        //return ExecuteStoredProcedureTrait::execute('venue_change_status',$params);
-    }
-
-    public function disable(Request $request)
-    {
-        $lang = $request->header('Accept-Language');
-        $user_token = $request->header('user_token');
-        $venue_id = $request->input('venue_id');
-
-        $params = [$lang, $user_token, $venue_id, 0];
-        //return ExecuteStoredProcedureTrait::execute('venue_change_status',$params);
+        $params = [$lang, $user_token, $event_name, $size,  $start_date, $end_date, $acc_start_date,
+            $acc_end_date, $organizer, $owner, $event_type,
+            $registration_form, $location, $status, $event_admin,
+            $security_officer, $security_category, $approval_option];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('event_add',$params, $outParams);
     }
 
     public function update(Request $request)
@@ -114,11 +114,6 @@ class EventController extends Controller
         $offset = $request->input('offset');
         $size = $request->input('size');
         $filters = $request->input('filters');
-        //$lang = $lang;
-        //$user_token = $token;
-        // $offset = $offset;
-        // $size = $size;
-        // $filters = $filters;
         $outParams = ['@gridcount'];
         $params = [$lang, $user_token, $offset,$size,$filters];
         return ExecuteStoredProcedureTrait::executeOutParams('event_get_all',$params,$outParams);
@@ -184,6 +179,18 @@ class EventController extends Controller
         $outParams = [];
 
         return ExecuteStoredProcedureTrait::executeOutParams('event_info_get_by_id',$params, $outParams);
+    }
+
+    public function eventComplete(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+
+        $params = [$lang, $user_token, $event_id];
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('event_complete',$params, $outParams);
     }
 
     public function eventAdminEventsGetAll(Request $request)
@@ -391,5 +398,19 @@ class EventController extends Controller
         $outParams = [];
 
         return ExecuteStoredProcedureTrait::executeOutParams('event_security_category_remove',$params, $outParams);
+    }
+
+    public function getAllParticipants(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $eventID = $request->input('eventID');
+        $offset = $request->input('offset');
+        $size = $request->input('size');
+        $filters = $request->input('filters');
+
+        $params = [$lang, $user_token, $eventID, $offset,$size,$filters];
+        $outParams = ['@gridcount'];
+        return ExecuteStoredProcedureTrait::executeOutParams('event_participant_get_all',$params,$outParams);
     }
 }
