@@ -197,26 +197,6 @@ class EventController extends Controller
         return ExecuteStoredProcedureTrait::executeOutParams('event_admin_events_get_all',$params, $outParams);
     }
 
-    public function getAllParticipants(Request $request)
-    {
-        $lang = $request->header('Accept-Language');
-        $user_token = $request->header('user_token');
-        $eventID = $request->input('eventID');
-        $offset = $request->input('offset');
-        $size = $request->input('size');
-        $filters = $request->input('filters');
-        // $lang = $lang;
-        // $user_token = $token;
-        // $eventID = $eventId;
-        // $offset = $offset;
-        // $size = $size;
-        // $filters = $filters;
-
-        $params = [$lang, $user_token, $eventID, $offset,$size,$filters];
-        $outParams = ['@gridcount'];
-        return ExecuteStoredProcedureTrait::executeOutParams('event_participant_get_all',$params,$outParams);
-    }
-
     public function eventAdminGetAll(Request $request)
     {
         $lang = $request->header('Accept-Language');
@@ -412,6 +392,4 @@ class EventController extends Controller
 
         return ExecuteStoredProcedureTrait::executeOutParams('event_security_category_remove',$params, $outParams);
     }
-
-
 }
