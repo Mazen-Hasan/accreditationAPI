@@ -412,4 +412,6 @@ class EventController extends Controller
 
         return ExecuteStoredProcedureTrait::executeOutParams('event_security_category_remove',$params, $outParams);
     }
+
+
 }

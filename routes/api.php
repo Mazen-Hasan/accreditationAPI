@@ -277,6 +277,31 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
     Route::post('getByID', [CompanyController::class,'getByID']);
 
     Route::post('edit', [CompanyController::class,'edit']);
+
+    Route::post('companyAdminEventsGetAll', [CompanyController::class,'companyAdminEventsGetAll']);
+
+    Route::group(['prefix'=>'accreditationCategory','as'=>'accreditationCategory/'], function(){
+        Route::post('getList', [CompanyController::class,'accreditationCategoryGetList']);
+        
+        Route::post('getAll', [CompanyController::class,'accreditationCategoryGetAll']);
+
+        Route::post('getByID', [CompanyController::class,'accreditationCategoryGetByID']);
+
+        Route::post('add', [CompanyController::class,'accreditationCategoryAdd']);
+
+        Route::post('edit', [CompanyController::class,'accreditationCategoryEdit']);
+
+        Route::post('remove', [CompanyController::class,'accreditationCategoryRemove']);
+
+        Route::post('approve', [CompanyController::class,'accreditationCategoryApprove']);
+    });
+
+    Route::group(['prefix'=>'subsidiary','as'=>'subsidiary/'], function(){
+        Route::post('getAll', [CompanyController::class,'getAllCompanySubsidiaries']);
+
+        Route::post('getList', [CompanyController::class,'subsidiaryGetList']);
+
+    });
 });
 
 Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
@@ -285,6 +310,8 @@ Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
     Route::post('rejectToCorrectByEventAdmin', [ParticipantController::class,'rejectToCorrectByEventAdmin']);
 
     Route::post('approveByEventAdmin', [ParticipantController::class,'approveByEventAdmin']);
+
+    Route::post('sendRequest', [ParticipantController::class,'sendParticipationRequest']);
 
     
 });

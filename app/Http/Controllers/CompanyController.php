@@ -152,4 +152,120 @@ class CompanyController extends Controller
         $outParams = [];
         return ExecuteStoredProcedureTrait::executeOutParams('company_get_by_id',$params, $outParams);
     }
+
+    public function accreditationCategoryGetList(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+        $outParams = [];
+        $params = [$lang, $user_token, $event_id];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_accreditation_category_get_list',$params,$outParams);
+    }
+
+    public function accreditationCategoryGetAll(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+        $company_id = $request->input('company_id');
+        $outParams = [];
+        $params = [$lang, $user_token, $event_id, $company_id];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_accreditation_category_get_all',$params,$outParams);
+    }
+
+    public function accreditationCategoryAdd(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+        $company_id = $request->input('company_id');
+        $accreditation_category_id = $request->input('accreditation_category_id');
+        $size = $request->input('size');
+        $outParams = [];
+        $params = [$lang, $user_token, $event_id, $company_id,$accreditation_category_id,$size];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_accreditation_category_add',$params,$outParams);
+    }
+
+    public function accreditationCategoryEdit(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $company_accreditation_category_id = $request->input('company_accreditation_category_id');
+        $size = $request->input('size');
+        $outParams = [];
+        $params = [$lang, $user_token, $company_accreditation_category_id,$size];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_accreditation_category_update',$params,$outParams);
+    }
+
+    public function accreditationCategoryGetByID(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $company_accreditation_category_id = $request->input('company_accreditation_category_id');
+
+        $params = [$lang, $user_token, $company_accreditation_category_id];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_accreditation_category_get_by_id',$params, $outParams);
+    }
+
+    public function accreditationCategoryRemove(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $company_accreditation_category_id = $request->input('company_accreditation_category_id');
+
+        $params = [$lang, $user_token, $company_accreditation_category_id];
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_accreditation_category_remove',$params, $outParams);
+    }
+
+    public function accreditationCategoryApprove(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+        $company_id = $request->input('company_id');
+        $outParams = [];
+        $params = [$lang, $user_token, $event_id, $company_id];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_accreditation_category_approve',$params,$outParams);
+    }
+
+    public function companyAdminEventsGetAll(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+
+        $params = [$lang, $user_token];
+
+        $outParams = ['@size'];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_admin_events_get_all',$params, $outParams);
+    }
+
+    public function subsidiaryGetList(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+
+        $params = [$lang, $user_token];
+        $outParams = [];
+        $dataJson = ExecuteStoredProcedureTrait::execute1('subsidiary_get_list',$params);
+
+        return $this->parsData($dataJson);
+    }
+
+    public function getAllCompanySubsidiaries(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $eventID = $request->input('eventID');
+        $companyID = $request->input('companyID');
+        $offset = $request->input('offset');
+        $size = $request->input('size');
+        $filters = $request->input('filters');
+
+        $params = [$lang, $user_token, $eventID,$companyID, $offset,$size,$filters];
+        $outParams = ['@gridcount'];
+        return ExecuteStoredProcedureTrait::executeOutParams('company_subsidiaries_get_all',$params,$outParams);
+    }
 }

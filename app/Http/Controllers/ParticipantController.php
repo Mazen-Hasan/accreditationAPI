@@ -40,4 +40,15 @@ class ParticipantController extends Controller
         $outParams = [];
         return ExecuteStoredProcedureTrait::executeOutParams('participant_approve_by_event_admin',$params,$outParams);
     }
+
+    public function sendParticipationRequest(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $staff_id = $request->input('staff_id');
+        $params = [$lang, $user_token, $staff_id];
+
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('participant_send_participation_request',$params,$outParams);
+    }
 }
