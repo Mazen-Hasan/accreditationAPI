@@ -116,6 +116,8 @@ Route::group(['prefix'=>'badge','as'=>'badge/'], function(){
     Route::post('update', [BadgeController::class,'update']);
 
     Route::post('getAvailableRegistrationForm', [BadgeController::class,'getAvailableRegistrationForm']);
+
+    Route::post('createFromDesigner', [BadgeController::class,'createFromDesigner']);
 });
 
 Route::group(['prefix'=>'role','as'=>'role/'], function(){
@@ -297,6 +299,12 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
 
         Route::post('getList', [CompanyController::class,'subsidiaryGetList']);
 
+        Route::post('create', [CompanyController::class,'subsidiaryCreate']);
+
+        Route::post('edit', [CompanyController::class,'subsidiaryEdit']);
+
+        Route::post('invite', [CompanyController::class,'subsidiaryInvite']);
+
     });
 });
 
@@ -319,6 +327,7 @@ Route::group(['prefix'=>'focalPoint','as'=>'focalPoint/'], function(){
 
     Route::post('getByID', [FocalPointController::class,'getByID']);
 });
+
 
 
 

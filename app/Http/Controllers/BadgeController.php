@@ -55,8 +55,10 @@ class BadgeController extends Controller
         $height = $request->input('height');
         $bg_color = $request->input('bg_color');
         $default_bg_image = $request->input('default_bg_image');
+        $badge_data = $request->input('badge_data');
+        $badge_size = $request->input('badge_size');
 
-        $params = [$lang, $user_token, $badge_id, $width, $height, $bg_color, $default_bg_image];
+        $params = [$lang, $user_token, $badge_id, $width, $height, $bg_color, $default_bg_image,$badge_data,$badge_size];
         $outParams = [];
 
         return ExecuteStoredProcedureTrait::executeOutParams('badge_update',$params, $outParams);
@@ -95,5 +97,19 @@ class BadgeController extends Controller
         $outParams = ['@size'];
 
         return ExecuteStoredProcedureTrait::executeOutParams('badge_available_registration_form_get_all',$params, $outParams);
+    }
+
+    public function createFromDesigner(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $template_id  = $request->input('template_id');
+        $badge_data  = $request->input('badge_data');
+        $width  = $request->input('width');
+        $height = $request->input('height');
+        $params = [$lang, $user_token ,$template_id,$badge_data,$width,$height];
+
+        $outParams = [];
+        return ExecuteStoredProcedureTrait::executeOutParams('template_badge_add',$params, $outParams);
     }
 }
