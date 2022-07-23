@@ -14,7 +14,9 @@ class RoleController extends Controller
         $role_id = $request->input('role_id');
 
         $params = [$lang, $user_token, $role_id];
-        return ExecuteStoredProcedureTrait::execute('role_get_by_id',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('role_get_by_id',$params, $outParams);
     }
 
     public function getAll(Request $request)
@@ -36,7 +38,9 @@ class RoleController extends Controller
         $status = $request->input('status');
 
         $params = [$lang, $user_token, $name, $status];
-        return ExecuteStoredProcedureTrait::execute('role_add',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('role_add',$params, $outParams);
     }
 
     public function update(Request $request)
@@ -48,7 +52,9 @@ class RoleController extends Controller
         $status = $request->input('status');
 
         $params = [$lang, $user_token, $role_id, $name, $status];
-        return ExecuteStoredProcedureTrait::execute('role_update',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('role_update',$params, $outParams);
     }
 
     public function enable(Request $request)
@@ -58,7 +64,9 @@ class RoleController extends Controller
         $role_id = $request->input('role_id');
 
         $params = [$lang, $user_token, $role_id, 1];
-        return ExecuteStoredProcedureTrait::execute('role_change_status',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('role_change_status',$params, $outParams);
     }
 
     public function disable(Request $request)
@@ -68,17 +76,21 @@ class RoleController extends Controller
         $role_id = $request->input('role_id');
 
         $params = [$lang, $user_token, $role_id, 0];
-        return ExecuteStoredProcedureTrait::execute('role_change_status',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('role_change_status',$params, $outParams);
     }
 
-    public function remove(Request $request)
+    public function delete(Request $request)
     {
         $lang = $request->header('Accept-Language');
         $user_token = $request->header('user_token');
         $role_id = $request->input('role_id');
 
         $params = [$lang, $user_token, $role_id];
-        return ExecuteStoredProcedureTrait::execute('role_remove',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('role_delete',$params, $outParams);
     }
 
     public function permissionsGetAll(Request $request)
@@ -101,6 +113,8 @@ class RoleController extends Controller
         $permission_ids = $request->input('permission_ids');
 
         $params = [$lang, $user_token, $role_id, $permission_ids];
-        return ExecuteStoredProcedureTrait::execute('role_permissions_update',$params);
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('role_permissions_update',$params, $outParams);
     }
 }

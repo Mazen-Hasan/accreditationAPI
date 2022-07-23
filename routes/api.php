@@ -43,13 +43,19 @@ Route::group(['prefix'=>'venue','as'=>'venue/'], function(){
 });
 
 Route::group(['prefix'=>'user','as'=>'user/'], function(){
+    Route::post('getAll', [userController::class,'getAll']);
+
     Route::post('getByID', [userController::class,'getByID']);
 
     Route::post('create', [userController::class,'create']);
 
+    Route::post('update', [userController::class,'update']);
+
     Route::post('enable', [userController::class,'enable']);
 
     Route::post('disable', [userController::class,'disable']);
+
+    Route::post('passwordReset', [userController::class,'passwordReset']);
 
     Route::post('login', [userController::class,'login']);
 
@@ -133,7 +139,7 @@ Route::group(['prefix'=>'role','as'=>'role/'], function(){
 
     Route::post('update', [RoleController::class,'update']);
 
-    Route::post('remove', [RoleController::class,'remove']);
+    Route::post('delete', [RoleController::class,'delete']);
 
     Route::post('permissions/getAll', [RoleController::class,'permissionsGetAll']);
 
@@ -143,9 +149,11 @@ Route::group(['prefix'=>'role','as'=>'role/'], function(){
 Route::group(['prefix'=>'event','as'=>'event/'], function(){
     Route::post('getByID', [EventController::class,'getByID']);
 
-    Route::post('infoGetByID', [EventController::class,'eventInfoGetByID']);
+    Route::post('infoGetByID', [EventController::class,'infoGetByID']);
 
-    Route::post('complete', [EventController::class,'eventComplete']);
+    Route::post('complete', [EventController::class,'complete']);
+
+    Route::post('changeLogo', [EventController::class,'changeLogo']);
 
     Route::post('create', [EventController::class,'create']);
 
@@ -264,6 +272,8 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
 
     Route::group(['prefix'=>'participant','as'=>'participant/'], function(){
         Route::post('getAll', [CompanyController::class,'getAllParticipants']);
+
+        Route::post('create', [ParticipantController::class,'participantAdd']);
     });
 
     Route::group(['prefix'=>'city','as'=>'city/'], function(){
@@ -309,15 +319,15 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
 
         Route::group(['prefix'=>'accreditationCategory','as'=>'accreditationCategory/'], function(){
             Route::post('getList', [CompanyController::class,'subsidiaryAccreditationCategoryGetList']);
-    
+
             Route::post('getAll', [CompanyController::class,'subsidiaryAccreditationCategoryGetAll']);
-    
+
             Route::post('getByID', [CompanyController::class,'accreditationCategoryGetByID']);
-    
+
             Route::post('add', [CompanyController::class,'accreditationCategoryAdd']);
-    
+
             Route::post('edit', [CompanyController::class,'accreditationCategoryEdit']);
-    
+
             Route::post('remove', [CompanyController::class,'accreditationCategoryRemove']);
         });
 
@@ -362,13 +372,3 @@ Route::group(['prefix'=>'focalPoint','as'=>'focalPoint/'], function(){
     Route::post('getByID', [FocalPointController::class,'getByID']);
 });
 
-
-
-
-Route::get('/test', function (Request $request){
-    return 'test';
-});
-
-Route::middleware('auth:sanctum')->get('/userController', function (Request $request) {
-    return $request->user();
-});

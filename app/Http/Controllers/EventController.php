@@ -7,6 +7,42 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    public function getByID(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+
+        $params = [$lang, $user_token, $event_id];
+
+        $event_details = ExecuteStoredProcedureTrait::execute1('event_get_by_id',$params);
+
+//        var_dump($event_details['data'][0]);
+//        exit;
+        if ($event_details['errCode'] == 1 ){
+            $event_id = $request->input('event_id');
+
+            $params = [ $event_id];
+
+            $event_ea_so_sc = ExecuteStoredProcedureTrait::execute1('event_ea_so_sc_get_all',$params);
+
+//            var_dump(json_encode($event_ea_so_sc));
+//            exit();
+
+            $returnedJson['errCode'] = $event_details['errCode'];
+            $returnedJson['errMsg'] = $event_details['errMsg'];
+            $returnedJson['data']['data']['details'] = $event_details['data'][0];
+            $returnedJson['data']['data']['event_list'] = $this->parsEventDetailsData($event_ea_so_sc);
+
+            return $returnedJson;
+
+        }
+        else{
+            return $event_details;
+        }
+
+    }
+
     public function getList(Request $request)
     {
         $lang = $request->header('Accept-Language');
@@ -65,9 +101,6 @@ class EventController extends Controller
         $tempData = $data["data"];
         $listType = [];
 
-        $typeItem = [];
-
-        $listTypeName = '';
         $listTypeKey = 'listType';
         $idKey = 'id';
         $nameKey = 'name';
@@ -91,6 +124,36 @@ class EventController extends Controller
         $returnedJson['errCode'] = $data['errCode'];
         $returnedJson['errMsg'] = $data['errMsg'];
         $returnedJson['data']['data'] = $listType;
+
+        return $returnedJson;
+    }
+
+    private function parsEventDetailsData($data){
+        $returnedJson = [];
+        $tempData = $data["data"];
+        $listType = [];
+
+        $listTypeKey = 'listType';
+        $idKey = 'id';
+        $nameKey = 'name';
+
+
+        for($i = 0; $i < count($tempData);$i++) {
+            $t = $tempData[$i];
+
+            $listTypeName = $t[$listTypeKey];
+
+            if (!array_key_exists($listTypeName, $listType)){
+                $listType[$listTypeName] = [];
+            }
+
+            $typeItem = ['name' => $t[$nameKey]];
+
+
+            array_push($listType[$listTypeName] , $typeItem);
+        }
+
+        $returnedJson = $listType;
 
         return $returnedJson;
     }
@@ -169,7 +232,7 @@ class EventController extends Controller
         return ExecuteStoredProcedureTrait::executeOutParams('event_company_get_all',$params,$outParams);
     }
 
-    public function eventInfoGetByID(Request $request)
+    public function infoGetByID(Request $request)
     {
         $lang = $request->header('Accept-Language');
         $user_token = $request->header('user_token');
@@ -181,7 +244,7 @@ class EventController extends Controller
         return ExecuteStoredProcedureTrait::executeOutParams('event_info_get_by_id',$params, $outParams);
     }
 
-    public function eventComplete(Request $request)
+    public function complete(Request $request)
     {
         $lang = $request->header('Accept-Language');
         $user_token = $request->header('user_token');
@@ -191,6 +254,19 @@ class EventController extends Controller
         $outParams = [];
 
         return ExecuteStoredProcedureTrait::executeOutParams('event_complete',$params, $outParams);
+    }
+
+    public function changeLogo(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+        $logo_name = $request->input('logo_name');
+
+        $params = [$lang, $user_token, $event_id, $logo_name];
+        $outParams = [];
+
+        return ExecuteStoredProcedureTrait::executeOutParams('event_change_logo',$params, $outParams);
     }
 
     public function eventAdminEventsGetAll(Request $request)

@@ -7,6 +7,23 @@ use App\Http\Traits\ExecuteStoredProcedureTrait;
 
 class ParticipantController extends Controller
 {
+    public function participantAdd(Request $request)
+    {
+        $lang = $request->header('Accept-Language');
+        $user_token = $request->header('user_token');
+        $event_id = $request->input('event_id');
+        $company_id = $request->input('company_id');
+        $participant_data = json_encode($request->input('participant_data')) ;
+
+        $params = [$lang, $user_token, $event_id, $company_id, $participant_data];
+        $outParams = [];
+
+//        var_dump($params);
+//        exit;
+
+        return ExecuteStoredProcedureTrait::executeOutParams('participant_add',$params,$outParams);
+    }
+
     public function rejectByEventAdmin(Request $request)
     {
         $lang = $request->header('Accept-Language');
