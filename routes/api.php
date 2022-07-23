@@ -292,6 +292,8 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
         Route::post('remove', [CompanyController::class,'accreditationCategoryRemove']);
 
         Route::post('approve', [CompanyController::class,'accreditationCategoryApprove']);
+
+        Route::post('sendForApproval', [CompanyController::class,'accreditationCategorySendForApproval']);
     });
 
     Route::group(['prefix'=>'subsidiary','as'=>'subsidiary/'], function(){
@@ -305,6 +307,38 @@ Route::group(['prefix'=>'company','as'=>'company/'], function(){
 
         Route::post('invite', [CompanyController::class,'subsidiaryInvite']);
 
+        Route::group(['prefix'=>'accreditationCategory','as'=>'accreditationCategory/'], function(){
+            Route::post('getList', [CompanyController::class,'subsidiaryAccreditationCategoryGetList']);
+    
+            Route::post('getAll', [CompanyController::class,'subsidiaryAccreditationCategoryGetAll']);
+    
+            Route::post('getByID', [CompanyController::class,'accreditationCategoryGetByID']);
+    
+            Route::post('add', [CompanyController::class,'accreditationCategoryAdd']);
+    
+            Route::post('edit', [CompanyController::class,'accreditationCategoryEdit']);
+    
+            Route::post('remove', [CompanyController::class,'accreditationCategoryRemove']);
+        });
+
+    });
+
+    Route::group(['prefix'=>'dataEntry','as'=>'dataEntry/'], function(){
+        Route::post('getList', [CompanyController::class,'accreditationCategoryGetList']);
+
+        Route::post('getAll', [CompanyController::class,'dataEntryGetAll']);
+
+        Route::post('getByID', [CompanyController::class,'accreditationCategoryGetByID']);
+
+        Route::post('add', [CompanyController::class,'accreditationCategoryAdd']);
+
+        Route::post('edit', [CompanyController::class,'accreditationCategoryEdit']);
+
+        Route::post('remove', [CompanyController::class,'accreditationCategoryRemove']);
+
+        Route::post('approve', [CompanyController::class,'accreditationCategoryApprove']);
+
+        Route::post('sendForApproval', [CompanyController::class,'accreditationCategorySendForApproval']);
     });
 });
 
